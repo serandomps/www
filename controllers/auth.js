@@ -4,7 +4,7 @@ var auth = require('auth');
 var redirect = serand.redirect;
 
 var base = utils.resolve('accounts://');
-var loginUri = utils.resolve('autos:///auth');
+var loginUri = utils.resolve('.:///auth');
 
 module.exports.signin = function (ctx, next) {
     var location = ctx.query.redirect_uri
