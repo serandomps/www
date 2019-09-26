@@ -3,6 +3,7 @@ var dust = require('dust')();
 var serand = require('serand');
 var utils = require('utils');
 var uready = require('uready');
+var auth = require('auth');
 var page = serand.page;
 var redirect = serand.redirect;
 var current = serand.current;
@@ -16,7 +17,7 @@ var layout = serand.layout(app);
 
 var loginUri = utils.resolve('www:///auth');
 
-var auth = require('./controllers/auth');
+var author = require('./controllers/auth');
 
 var can = function (permission) {
     return function (ctx, next) {
@@ -29,7 +30,7 @@ page(function (ctx, next) {
     next();
 });
 
-page('/signin', auth.signin);
+page('/signin', author.signin);
 
 page('/signup', function (ctx, next) {
     var query = ctx.query | {};
@@ -52,125 +53,49 @@ page('/auth', function (ctx, next) {
 });
 
 page('/', function (ctx, next) {
-    layout('two-column-right')
+    layout('cover')
         .area('#header')
         .add('www-client:navigation')
         //.add('breadcrumb')
-        .area('#right')
-        .add('vehicles:recent')
         .area('#middle')
         .add('www-client:home')
-        .add('vehicles:featured')
+        /*.add('vehicles:featured', {
+            size: 3
+        })*/
         .area('#footer')
         .add('footer')
         .render(ctx, next);
 });
 
-page('/vehicles', function (ctx, next) {
-    layout('two-column-left')
-        .area('#header')
-        .add('www-client:navigation')
-        //.add('breadcrumb')
-        .area('#left')
-        .add('vehicles:filter', {query: ctx.query})
-        .area('#middle')
-        .add('vehicles:search', {query: ctx.query})
-        .area('#footer')
-        .add('footer')
-        .render(ctx, next);
-});
-
-page('/create-vehicles', can('vehicle:create'), function (ctx, next) {
-    layout('one-column')
-        .area('#header')
-        .add('www-client:navigation')
-        .area('#middle')
-        .add('vehicles:create')
-        .area('#footer')
-        .add('footer')
-        .render(ctx, next);
-});
-
-page('/vehicles/:id', can('vehicle:read'), function (ctx, next) {
-    layout('one-column')
-        .area('#header')
-        .add('www-client:navigation')
-        //.add('breadcrumb')
-        .area('#middle')
-        .add('vehicles:findone', {
-            id: ctx.params.id
-        })
-        .area('#footer')
-        .add('footer')
-        .render(ctx, next);
-});
-
-page('/vehicles/:id/edit', can('vehicle:update'), function (ctx, next) {
-    layout('one-column')
-        .area('#header')
-        .add('www-client:navigation')
-        //.add('breadcrumb')
-        .area('#middle')
-        .add('vehicles:create', {
-            id: ctx.params.id
-        })
-        .area('#footer')
-        .add('footer')
-        .render(ctx, next);
-});
-
-page('/vehicles/:id/delete', can('vehicle:update'), function (ctx, next) {
-    layout('one-column')
-        .area('#header')
-        .add('www-client:navigation')
-        //.add('breadcrumb')
-        .area('#middle')
-        .add('vehicles:remove', {
-            id: ctx.params.id
-        })
-        .area('#footer')
-        .add('footer')
-        .render(ctx, next);
-});
-
-page('/mine', can('user'), function (ctx, next) {
-    layout('one-column')
-        .area('#header')
-        .add('www-client:navigation')
-        .area('#middle')
-        .add('vehicles:mine')
-        .area('#footer')
-        .add('footer')
-        .render(ctx, next);
-});
-
-//TODO: redirect user to login page when authentication is needed
-//TODO: basically a front controller pattern
-utils.on('user', 'login', function (path) {
+utils.on('user', 'login', function (location) {
     var ctx;
-    if (!path) {
+    if (!location) {
         ctx = serand.current();
-        path = ctx.path;
+        location = ctx.path;
     }
     serand.store('state', {
-        path: path
+        location: location
     });
-    utils.emit('user', 'authenticator', {
+
+    auth.authenticator({
         type: 'serandives',
         location: loginUri
     }, function (err, uri) {
+        if (err) {
+            return console.error(err);
+        }
         redirect(uri);
     });
 });
 
 utils.on('user', 'logged in', function (token) {
     var state = serand.store('state', null);
-    redirect(state && state.path || '/');
+    redirect(state && state.location || '/');
 });
 
 utils.on('user', 'logged out', function (usr) {
     var state = serand.store('state', null);
-    redirect(state && state.path || '/');
+    redirect(state && state.location || '/');
 });
 
 utils.emit('serand', 'ready');
