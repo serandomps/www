@@ -13,6 +13,7 @@
         "serandomps/www-client": "master",
         "serandomps/vehicles": "master",
         "serandomps/footer": "master",
+        "serandomps/pages": "master",
         "serandomps/navigation": "master"
     },
     "scripts": [

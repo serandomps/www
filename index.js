@@ -67,6 +67,101 @@ page('/', function (ctx, next) {
         .render(ctx, next);
 });
 
+page('/about', function (ctx, next) {
+    utils.alias(ctx.path, function (err, url) {
+        if (err) {
+            return next(err);
+        }
+        layout('one-column')
+            .area('#header')
+            .add('www-client:navigation')
+            //.add('breadcrumb')
+            .area('#middle')
+            .add('pages:findone', {
+                id: url
+            })
+            .area('#footer')
+            .add('footer')
+            .render(ctx, next);
+    });
+});
+
+page('/contact', function (ctx, next) {
+    utils.alias(ctx.path, function (err, url) {
+        if (err) {
+            return next(err);
+        }
+        layout('one-column')
+            .area('#header')
+            .add('www-client:navigation')
+            //.add('breadcrumb')
+            .area('#middle')
+            .add('pages:findone', {
+                id: url
+            })
+            .area('#footer')
+            .add('footer')
+            .render(ctx, next);
+    });
+});
+
+page('/help', function (ctx, next) {
+    utils.alias(ctx.path, function (err, url) {
+        if (err) {
+            return next(err);
+        }
+        layout('one-column')
+            .area('#header')
+            .add('www-client:navigation')
+            //.add('breadcrumb')
+            .area('#middle')
+            .add('pages:findone', {
+                id: url
+            })
+            .area('#footer')
+            .add('footer')
+            .render(ctx, next);
+    });
+});
+
+page('/privacy', function (ctx, next) {
+    utils.alias(ctx.path, function (err, url) {
+        if (err) {
+            return next(err);
+        }
+        layout('one-column')
+            .area('#header')
+            .add('www-client:navigation')
+            //.add('breadcrumb')
+            .area('#middle')
+            .add('pages:findone', {
+                id: url
+            })
+            .area('#footer')
+            .add('footer')
+            .render(ctx, next);
+    });
+});
+
+page('/terms', function (ctx, next) {
+    utils.alias(ctx.path, function (err, url) {
+        if (err) {
+            return next(err);
+        }
+        layout('one-column')
+            .area('#header')
+            .add('www-client:navigation')
+            //.add('breadcrumb')
+            .area('#middle')
+            .add('pages:findone', {
+                id: url
+            })
+            .area('#footer')
+            .add('footer')
+            .render(ctx, next);
+    });
+});
+
 utils.on('user', 'login', function (location) {
     var ctx;
     if (!location) {
