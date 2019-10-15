@@ -162,6 +162,25 @@ page('/terms', function (ctx, next) {
     });
 });
 
+page('/prohibited', function (ctx, next) {
+    utils.alias(ctx.path, function (err, url) {
+        if (err) {
+            return next(err);
+        }
+        layout('one-column')
+            .area('#header')
+            .add('www-client:navigation')
+            //.add('breadcrumb')
+            .area('#middle')
+            .add('pages:findone', {
+                id: url
+            })
+            .area('#footer')
+            .add('footer')
+            .render(ctx, next);
+    });
+});
+
 utils.on('user', 'login', function (location) {
     var ctx;
     if (!location) {
