@@ -177,10 +177,8 @@ page('/prohibited', function (ctx, next) {
 });
 
 utils.on('user', 'login', function (location) {
-    var ctx;
     if (!location) {
-        ctx = serand.current();
-        location = ctx.path;
+        location = serand.path();
     }
     serand.store('state', {
         location: location
