@@ -11,9 +11,9 @@
         "serandomps/utils": "master",
         "serandomps/uready": "master",
         "serandomps/www-client": "master",
-        "serandomps/vehicles": "master",
+        "serandomps/model-vehicles": "master",
         "serandomps/footer": "master",
-        "serandomps/pages": "master",
+        "serandomps/model-pages": "master",
         "serandomps/navigation": "master"
     },
     "scripts": [

@@ -54,7 +54,7 @@ page('/', function (ctx, next) {
         //.add('breadcrumb')
         .area('#middle')
         .add('www-client:home')
-        /*.add('vehicles:featured', {
+        /*.add('model-vehicles:featured', {
             size: 3
         })*/
         .area('#footer')
@@ -72,7 +72,7 @@ page('/about', function (ctx, next) {
             .add('www-client:navigation')
             //.add('breadcrumb')
             .area('#middle')
-            .add('pages:findone', {
+            .add('model-pages:findone', {
                 id: url
             })
             .area('#footer')
@@ -91,7 +91,7 @@ page('/contact', function (ctx, next) {
             .add('www-client:navigation')
             //.add('breadcrumb')
             .area('#middle')
-            .add('pages:findone', {
+            .add('model-pages:findone', {
                 id: url
             })
             .area('#footer')
@@ -110,7 +110,7 @@ page('/help', function (ctx, next) {
             .add('www-client:navigation')
             //.add('breadcrumb')
             .area('#middle')
-            .add('pages:findone', {
+            .add('model-pages:findone', {
                 id: url
             })
             .area('#footer')
@@ -129,7 +129,7 @@ page('/privacy', function (ctx, next) {
             .add('www-client:navigation')
             //.add('breadcrumb')
             .area('#middle')
-            .add('pages:findone', {
+            .add('model-pages:findone', {
                 id: url
             })
             .area('#footer')
@@ -148,7 +148,7 @@ page('/terms', function (ctx, next) {
             .add('www-client:navigation')
             //.add('breadcrumb')
             .area('#middle')
-            .add('pages:findone', {
+            .add('model-pages:findone', {
                 id: url
             })
             .area('#footer')
@@ -167,7 +167,7 @@ page('/prohibited', function (ctx, next) {
             .add('www-client:navigation')
             //.add('breadcrumb')
             .area('#middle')
-            .add('pages:findone', {
+            .add('model-pages:findone', {
                 id: url
             })
             .area('#footer')
