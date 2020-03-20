@@ -62,6 +62,17 @@ page('/', function (ctx, next) {
         .render(ctx, next);
 });
 
+page('/imprint', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('www-client:navigation')
+        .area('#middle')
+        .add('www-client:imprint')
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
 page('/about', function (ctx, next) {
     utils.alias(ctx.path, function (err, url) {
         if (err) {
