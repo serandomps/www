@@ -2,6 +2,7 @@ var dust = require('dust')();
 
 var serand = require('serand');
 var utils = require('utils');
+var watcher = require('watcher');
 var uready = require('uready');
 var auth = require('auth');
 var page = serand.page;
@@ -37,9 +38,9 @@ page('/auth', function (ctx, next) {
         refresh: sera.refresh
     };
     if (o.username) {
-        return utils.emit('user', 'initialize', o);
+        return watcher.emit('user', 'initialize', o);
     }
-    utils.emit('user', 'logged out');
+    watcher.emit('user', 'logged out');
 });
 
 page('/', function (ctx, next) {
@@ -182,7 +183,7 @@ page('/prohibited', function (ctx, next) {
     });
 });
 
-utils.on('user', 'login', function (location) {
+watcher.on('user', 'login', function (location) {
     if (!location) {
         location = serand.path();
     }
@@ -201,14 +202,14 @@ utils.on('user', 'login', function (location) {
     });
 });
 
-utils.on('user', 'logged in', function (token) {
+watcher.on('user', 'logged in', function (token) {
     var state = serand.persist('state', null);
     redirect(state && state.location || '/');
 });
 
-utils.on('user', 'logged out', function (usr) {
+watcher.on('user', 'logged out', function (usr) {
     var state = serand.persist('state', null);
     redirect(state && state.location || '/');
 });
 
-utils.emit('serand', 'ready');
+watcher.emit('serand', 'ready');
